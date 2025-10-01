@@ -27,4 +27,4 @@ for i in range(1, 6):
     print(f"Subject {i}: {scores[i-1]}")
 
 print(f"\nAverage Score: {average:.2f}")
-print(f"Final Grade: ", get_final_grade(average))
+print("Final Grade: ", get_final_grade(average))
