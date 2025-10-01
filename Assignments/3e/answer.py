@@ -13,11 +13,9 @@ while True:
         continue
     temp = float(input("Enter the temperature: "))
     if choice == 'C':
-        # result = celsius_to_fahrenheit(temp)
         print(f"{temp:.1f}°C is {celsius_to_fahrenheit(temp):.2f}°F")
         break     
     else:
-        # result = fahrenheit_to_celsius(temp)
         print(f"{temp:.1f}°F is {fahrenheit_to_celsius(temp):.2f}°C")
         break
     
