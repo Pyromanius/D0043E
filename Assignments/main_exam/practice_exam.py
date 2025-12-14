@@ -4,15 +4,6 @@ flight_list = {
     "LH005": {"destination": "Manchester", "status": "Boarding"}
 }
 
-# Not actually needed.
-# def is_valid_choice(choice):
-#     if choice in ['1', '2', '3', '4', '5', '6', 'q']:
-#         return True
-#     else:
-#         print("Invalid choice. Choose 1-6 or q.")
-#         return False
-
-
 def main_menu():
     while True:
         print("""# LTU Airport Flight Manager
