@@ -4,6 +4,7 @@ flight_list = {
     "LH005": {"destination": "Manchester", "status": "Boarding"}
 }
 
+
 def main_menu():
     while True:
         print("""# LTU Airport Flight Manager
@@ -151,7 +152,7 @@ def bubble_sort(flight_list):
 
 def get_by_status():
     while True:
-        status = "Boarding" # input("Enter status to search for (Scheduled/Boarding/Departed): ").strip()
+        status = input("Enter status to search for (Scheduled/Boarding/Departed): ").strip()
         if not is_valid_status(status):
             continue
         else:
