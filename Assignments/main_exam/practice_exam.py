@@ -119,7 +119,7 @@ def view_flights():
     Docstring for view_flights
     Sorts and prints out a list of all currnet flights in the system.
     """
-    bubble_sort(flight_list)
+    bubble_sort(flight_list) # Was not inplemented correctly due to the AutoTest causing confusion, when asking for the wrong function.
     if len(flight_list) == 0:
         print("No flights registered.")
     else:
@@ -220,7 +220,7 @@ def find_by_status():
             status_list = list_status_matches(status)
             break
     if len(status_list) > 0:
-        print(f"Flights with status {status}:")
+        print(f"Flights with status {status}")
         print("-" * 40)
         print("Flight   Destination")
         print("-" * 40)
