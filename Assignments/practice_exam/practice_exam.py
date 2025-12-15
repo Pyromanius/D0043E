@@ -11,7 +11,6 @@ A program used to keep and review the status of the flights for LTU Airport.
 
 flight_list = {}
 
-
 def main_menu():
     """
     Docstring for main_menu
@@ -113,11 +112,11 @@ def add_flight():
     print(f"Flight {flight_no} to {destination} added successfully!")
     flight_list[flight_no] = {"destination": destination, "status": status}
 
-
 def view_flights():
     """
     Docstring for view_flights
     Sorts and prints out a list of all currnet flights in the system.
+    TODO: Should have a helper function that takes flight_list as a parameter and sorts it, returning the sorted list. !!
     """
     bubble_sort(flight_list) # Was not inplemented correctly due to the AutoTest causing confusion, when asking for the wrong function.
     if len(flight_list) == 0:
@@ -147,6 +146,7 @@ def update_status():
     """
     Docstring for update_status
     Update the status of an exisiting flight.
+    # TODO: Repeat while-loop after flight_no was input correctly. Should repeat and ONLY ASK FOR status again if input is incorrect.
     """
     while True:
         flight_no = input("Enter flight number: ").strip()
@@ -154,6 +154,8 @@ def update_status():
             print("Error: Flight not found.")
             continue
         print(f"Current status: {flight_list[flight_no]["status"]}")
+    
+    # Should repeat while loop here
         status = input("Enter new status (Scheduled/Boarding/Departed) or press Enter to keep the current status: ")
         if not status:
             # If status is left empty then keep current status.
