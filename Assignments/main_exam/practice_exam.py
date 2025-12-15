@@ -44,7 +44,6 @@ q. Exit program""")
             break
         else:
             print("Invalid option! Please choose 1-6 or q.")
-            continue
 
 
 def is_valid_flight_no(flight_no):
@@ -92,6 +91,7 @@ def add_flight():
     Add a new flight to the system and perform the necessary checks to see if input is valid.
     """
     while True:
+        # Go through inputs one-by-one and validate each input before moving on.
         flight_no = input("Enter flight number: ").strip()
         if not is_valid_flight_no(flight_no):
             continue
@@ -156,6 +156,7 @@ def update_status():
         print(f"Current status: {flight_list[flight_no]["status"]}")
         status = input("Enter new status (Scheduled/Boarding/Departed) or press Enter to keep the current status: ")
         if not status:
+            # If status is left empty then keep current status.
             print(f"Flight {flight_no} status updated successfully!")
             break
         if not is_valid_status(status):
@@ -214,10 +215,12 @@ def find_by_status():
         if not is_valid_status(status):
             continue
         else:
+            # Create a new list with all the flights matching the input status. 
+            # This keeps the list of all flights intact.
             status_list = list_status_matches(status)
             break
     if len(status_list) > 0:
-        print(f"Flights with status {status}")
+        print(f"Flights with status {status}:")
         print("-" * 40)
         print("Flight   Destination")
         print("-" * 40)
