@@ -1,47 +1,57 @@
-flight_list = {
-    "SK137": {"destination": "Stockholm", "status": "Scheduled"},
-    "LH120": {"destination": "Munich", "status": "Boarding"},
-    "LH005": {"destination": "Manchester", "status": "Boarding"}
-}
+"""
+LTU AIRPORT FLIGHT MANAGER
+A program used to keep and review the status of the flights for LTU Airport.
+"""
+
+# flight_list = {
+#     "SK137": {"destination": "Stockholm", "status": "Scheduled"},
+#     "LH120": {"destination": "Munich", "status": "Boarding"},
+#     "LH005": {"destination": "Manchester", "status": "Boarding"}
+# }
+
+flight_list = {}
 
 
 def main_menu():
+    """
+    Docstring for main_menu
+    Runs the main menu and let's the user choose what operation to perform.
+    """
     while True:
         print("""# LTU Airport Flight Manager
 1. Register a new flight
 2. Update flight status
 3. Remove a flight
 4. View all flights
-5. Find flights by status 
+5. Find flights by status
 6. Count total flights
 q. Exit program""")
         choice = input("Enter your option: ")
         if choice == '1':
             add_flight()
-            continue
         elif choice == '2':
             update_status()
-            continue
         elif choice == '3':
             remove_flight()
-            continue
         elif choice == '4':
-            view_flights(flight_list)
-            continue
+            view_flights()
         elif choice == '5':
-            get_by_status()
-            continue
+            find_by_status()
         elif choice == '6':
             count_flights()
-            continue
         elif choice == 'q':
             print("Goodbye!")
             break
         else:
+            print("Invalid option! Please choose 1-6 or q.")
             continue
 
 
 def is_valid_flight_no(flight_no):
+    """
+    Docstring for is_valid_flight_no
+    Check whether the input flight number is valid and does not exist already.
+    """
     if len(flight_no) < 3:
         print("Error: Flight number must be at least 3 characters long.")
         return False
@@ -53,42 +63,67 @@ def is_valid_flight_no(flight_no):
 
 
 def is_valid_destination(destination):
+    """
+    Docstring for is_valid_destination
+    Check that destination is not empty.
+    """
     if not destination:
-        print("Error. Desination cannot be empty.")
+        print("Error: Destination cannot be empty.")
         return False
     else:
         return True
-    
+
 
 def is_valid_status(status):
+    """
+    Docstring for is_valid_status
+    Check if status is one of the valid options.
+    """
     if status in ["Boarding", "Departed", "Scheduled"]:
         return True
     else:
-        print("Invalid status! Choose Scheduled, Boarding, or Departed.")
+        print("Error: Invalid status! Choose Scheduled, Boarding, or Departed.")
         return False
 
 
 def add_flight():
-    flight_no = input("Enter flight number: ").strip()
-    if not is_valid_flight_no(flight_no):
-        return
-    destination = input(f"Enter destination: ")
-    if not is_valid_destination(destination):
-        return
-    status = input(f"Enter status (Scheduled/Boarding/Departed): ")
-    if not is_valid_status(status):
-        return
-    else:
-        print(f"Flight number {flight_no} to {destination} added succesfully!")
-        flight_list[flight_no] = {"destination": destination, "status": status}
+    """
+    Docstring for add_flight
+    Add a new flight to the system and perform the necessary checks to see if input is valid.
+    """
+    while True:
+        flight_no = input("Enter flight number: ").strip()
+        if not is_valid_flight_no(flight_no):
+            continue
+        else:
+            break
+    while True:
+        destination = input("Enter destination: ")
+        if not is_valid_destination(destination):
+            continue
+        else:
+            break
+    while True:
+        status = input("Enter status (Scheduled/Boarding/Departed): ")
+        if not is_valid_status(status):
+            continue
+        else:
+            break
+
+    print(f"Flight {flight_no} to {destination} added successfully!")
+    flight_list[flight_no] = {"destination": destination, "status": status}
 
 
-def view_flights(flight_list):
-    flight_list = bubble_sort(flight_list)
+def view_flights():
+    """
+    Docstring for view_flights
+    Sorts and prints out a list of all currnet flights in the system.
+    """
+    bubble_sort(flight_list)
     if len(flight_list) == 0:
         print("No flights registered.")
     else:
-        print("Current Flights:") 
+        print("Current Flights:")
         print("-" * 48)
         print("Flight   Destination        Status")
         print("-" * 48)
@@ -98,6 +133,10 @@ def view_flights(flight_list):
 
 
 def is_active_flight_number(flight_no):
+    """
+    Docstring for is_active_flight_number
+    Check if entered flight number already exists in the system.
+    """
     if flight_no in flight_list:
         return True
     else:
@@ -105,26 +144,33 @@ def is_active_flight_number(flight_no):
 
 
 def update_status():
+    """
+    Docstring for update_status
+    Update the status of an exisiting flight.
+    """
     while True:
         flight_no = input("Enter flight number: ").strip()
         if not is_active_flight_number(flight_no):
             print("Error: Flight not found.")
             continue
         print(f"Current status: {flight_list[flight_no]["status"]}")
-        status = input(f"Enter new status (Scheduled/Boarding/Departed) or press Enter to keep the current status: ")
+        status = input("Enter new status (Scheduled/Boarding/Departed) or press Enter to keep the current status: ")
         if not status:
-            print(f"{flight_no} status updated succesfully!")
+            print(f"Flight {flight_no} status updated successfully!")
             break
         if not is_valid_status(status):
-            print("Invalid status! Choose Scheduled, Boarding, or Departed.")
             continue
         else:
-            print(f"{flight_no} status updated succesfully!")
             flight_list[flight_no]["status"] = status
+            print(f"Flight {flight_no} status updated successfully!")
             break
 
 
 def remove_flight():
+    """
+    Docstring for remove_flight
+    Remove a flight from the system by enetering a flight number.
+    """
     while True:
         flight_no = input("Enter flight number: ").strip()
         if not is_active_flight_number(flight_no):
@@ -137,22 +183,34 @@ def remove_flight():
 
 
 def count_flights():
+    """
+    Docstring for count_flights
+    Count the total amount of flights in the system.
+    """
     print(f"Total flights registered: {len(flight_list)}")
 
 
 def bubble_sort(flight_list):
+    """
+    Docstring for bubble_sort
+    Sort the list of flights alphabetically. Takes a flight_list parameter for reuseable purposes.
+    """
     flight_numbers = list(flight_list.keys())
     for i in range(len(flight_numbers)):
         for j in range(0, len(flight_numbers) - i - 1):
             if flight_numbers[j] > flight_numbers[j + 1]:
                 flight_numbers[j], flight_numbers[j + 1] = flight_numbers[j + 1], flight_numbers[j]
-    sorted_list = {k : flight_list[k] for k in flight_numbers}
+    sorted_list = {k: flight_list[k] for k in flight_numbers}
     return sorted_list
 
 
-def get_by_status():
+def find_by_status():
+    """
+    Docstring for find_by_status
+    Search for all flights that has a ceratin status.
+    """
     while True:
-        status = input("Enter status to search for (Scheduled/Boarding/Departed): ").strip()
+        status = input("Enter status to search for (Scheduled/Boarding/Departed): ")
         if not is_valid_status(status):
             continue
         else:
@@ -171,22 +229,30 @@ def get_by_status():
 
 
 def list_status_matches(status):
+    """
+    Docstring for list_status_matches
+    Puts all status matches in a new list and returns that list.
+    """
     flight_numbers = list(flight_list.keys())
     status_list = {}
     for i in range(len(flight_numbers)):
         if flight_list[flight_numbers[i]]["status"] == status:
-            status_list[flight_numbers[i]] = {"destination": flight_list[flight_numbers[i]]["destination"], 
-                                            "status": flight_list[flight_numbers[i]]["status"]}
+            status_list[flight_numbers[i]] = {"destination": flight_list[flight_numbers[i]]["destination"],
+                                              "status": flight_list[flight_numbers[i]]["status"]}
     status_list = bubble_sort(status_list)
     return status_list
 
 
 def main():
+    """
+    Docstring for main
+    Main function. Used to start up the main menu.
+    """
     main_menu()
 
 
 if __name__ == "__main__":
     try:
         main()
-    except KeyboardInterrupt:
-        print("\nProgram interrupted. Exiting.")
+    except (KeyboardInterrupt, EOFError):
+        exit()
